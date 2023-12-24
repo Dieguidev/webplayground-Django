@@ -25,9 +25,8 @@ class PageCreate(CreateView):
 
 class PageUpdate(UpdateView):
     model = Page
-    fields = ['title', 'content', 'order']
+    form_class = PageForm
     template_name_suffix = '_update_form'
-    success_url = reverse_lazy('pages:pages')
     
     def get_success_url(self):
         return reverse_lazy('pages:update', args=[self.object.id]) +'?ok'
