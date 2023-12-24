@@ -10,7 +10,14 @@ from django.shortcuts import redirect
 from .models import Page
 from .forms import PageForm
 
-
+class StaffRequiredMixin(object):
+    """
+    * Este mixin requerirá que el usuario sea miembro del staff
+    """
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_staff:
+            return redirect(reverse_lazy('admin:login'))
+        return super(StaffRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 
 # Create your views here.
@@ -22,16 +29,10 @@ class PageDetailView(DetailView):
     model = Page
     
 #* vista para crear paginas
-class PageCreate(CreateView):
+class PageCreate(StaffRequiredMixin, CreateView):
     model = Page
     form_class = PageForm
     success_url = reverse_lazy('pages:pages')
-    
-    #* para que no se pueda crear una pagina sin estar logueado
-    def dispatch(self, request, *args, **kwargs):
-        if not request.user.is_staff:
-            return redirect(reverse_lazy('admin:login'))
-        return super(PageCreate, self).dispatch(request, *args, **kwargs)
 
 class PageUpdate(UpdateView):
     model = Page
