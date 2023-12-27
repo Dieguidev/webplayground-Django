@@ -37,9 +37,16 @@
                   <a class="nav-link" href="{% url 'login' %}">Acceder</a>
                 </li>
               {% else %}
-                <li class="nav-item">
+              <li class="nav-item"></li>
+                <form id="logout-form" method="post" action="{% url 'logout' %}">
+                  {% csrf_token %}
+                  <button  type="submit">Salir</button>
+                </form>
+              </li>
+                
+                <!-- <li class="nav-item">
                   <a class="nav-link" href="{% url 'logout' %}">Salir</a>
-                </li>
+                </li> -->
               {% endif %}
             </ul>
           </div>
