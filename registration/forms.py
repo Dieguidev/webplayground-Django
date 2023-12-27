@@ -9,6 +9,7 @@ class UserCreationFormWithEmail(UserCreationForm):
         model = User
         fields = ("username", "email", "password1", "password2")
 
+    #* en la nueva version de django ya no es necesario este metodo
     # def clean_email(self):
     #     # recupera el email al enviar el formulario
     #     email = self.cleaned_data.get["email"]
