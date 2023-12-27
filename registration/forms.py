@@ -9,3 +9,11 @@ class UserCreationFormWithEmail(UserCreationForm):
         model = User
         fields = ("username", "email", "password1", "password2")
 
+    # def clean_email(self):
+    #     # recupera el email al enviar el formulario
+    #     email = self.cleaned_data.get["email"]
+    #     # valida si el email ya existe en la base de datos
+    #     if User.objects.filter(email=email).exists():
+    #         # si el email ya existe, lanza un error de validacion
+    #         raise forms.ValidationError("El email ya existe")
+    #     return email
