@@ -127,7 +127,7 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 #* auth redirects
-LOGIN_REDIRECT_URL = "pages:pages"
+# LOGIN_REDIRECT_URL = "pages:pages"
 LOGOUT_REDIRECT_URL = "home"
 
 import os
