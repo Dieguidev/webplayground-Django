@@ -14,6 +14,9 @@ class Profile(models.Model):
     avatar = models.ImageField(upload_to = custom_upload_to, null=True, blank=True)
     bio = models.TextField(null=True, blank=True)
     link = models.URLField(max_length=200, null=True, blank=True)
+    
+    class Meta:
+        ordering = ['user__username']
 
 # señal que se ejecuta cuando se crea un usuario y se crea su perfil enlazado
 @receiver(post_save, sender=User)
