@@ -27,6 +27,48 @@
             </div>
           {% endfor %}
         </div>
+        <!-- * Menú de paginación -->
+        <!-- Verifica si la lista está paginada -->
+        {% if is_paginated %}
+        <nav aria-label="Page navigation">
+          <ul class="pagination justify-content-center">
+            <!-- Verifica si hay una página anterior -->
+            {% if page_obj.has_previous %}
+              <!-- Item de la página anterior -->
+              <li class="page-item ">
+                <!-- Enlace con el número de la página anterior -->
+                <a class="page-link" href="?page={{ page_obj.previous_page_number }}">&laquo;</a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <!-- Enlace deshabilitado si no hay página anterior -->
+                <a class="page-link" href="#" tabindex="-1">&laquo;</a>
+              </li>
+            {% endif %}
+            <!-- Bucle a través de las páginas disponibles -->
+            {% for i in paginator.page_range %}
+              <!-- Item de la página actual con clase "active" si es la página actual -->
+              <li class="page-item {% if page_obj.number == i %}active{% endif %}">
+                <!-- Enlace con el número de la página -->
+                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+              </li>
+            {% endfor %}
+            <!-- Verifica si hay una página siguiente -->
+            {% if page_obj.has_next %}
+              <!-- Item de la página siguiente -->
+              <li class="page-item ">
+                <!-- Enlace con el número de la página siguiente -->
+                <a class="page-link" href="?page={{ page_obj.next_page_number }}">&raquo;</a>
+              </li>
+            {% else %}
+              <li class="page-item disabled">
+                <!-- Enlace deshabilitado si no hay página siguiente -->
+                <a class="page-link" href="#" tabindex="-1">&raquo;</a>
+              </li>
+            {% endif %}
+          </ul>
+        </nav>
+        {% endif %}
       </div>
     </div>
   </div>
