@@ -11,9 +11,19 @@ class Message(models.Model):
     class Meta:
         ordering = ['-created']
 
+#* Creando el object manager
+class ThreadManager(models.Manager):
+    def find(self, user1, user2):
+        queryset = self.filter(users=user1).filter(users=user2)
+        if len(queryset) > 0:
+            return queryset[0]
+        return None
+
 class Thread(models.Model):
     users = models.ManyToManyField(User, related_name='threads')
     messages = models.ManyToManyField(Message)
+    
+    objects = ThreadManager()
 
 
 # * señal que se ejecuta cuando se crea un mensaje y se crea su hilo enlazado
