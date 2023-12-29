@@ -22,5 +22,16 @@ def messages_changed(sender, **kwargs):
     action = kwargs.pop('action', None)
     pk_set = kwargs.pop('pk_set', None)
     print(instance, action, pk_set)
-                
+    
+    false_pk_set = set()
+    if action == 'pre_add':
+        for msg_pk in pk_set:
+            msg = Message.objects.get(pk=msg_pk)
+            if msg.user not in instance.users.all():
+                print(f'El usuario {msg.user} no forma parte del hilo')
+                false_pk_set.add(msg_pk)
+
+    # buscar los mensajes que se encuentren en pk_set
+    pk_set.difference_update(false_pk_set)
+
 m2m_changed.connect(messages_changed, sender=Thread.messages.through)
